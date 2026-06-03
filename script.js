@@ -72,17 +72,21 @@ function renderGallery(imagesToRender) {
     const pdfItem = galleryGrid.querySelector('.pdf-gallery-item');
     const pdfItemClone = pdfItem ? pdfItem.cloneNode(true) : null;
 
+    // Check if PDF should be shown (based on search)
+    const showPdf = imagesToRender._showPdf !== false; // Show PDF by default unless _hidePdf is true
+    const hidePdf = imagesToRender._hidePdf === true;
+
     galleryGrid.innerHTML = '';
 
-    if (imagesToRender.length === 0) {
+    if (imagesToRender.length === 0 && !showPdf) {
         noResults.classList.remove('hidden');
         return;
     }
 
     noResults.classList.add('hidden');
 
-    // Restore PDF item first
-    if (pdfItemClone) {
+    // Restore PDF item first if it should be shown
+    if (pdfItemClone && showPdf && !hidePdf) {
         galleryGrid.appendChild(pdfItemClone);
         // Restore like button functionality for PDF item
         const pdfLikeBtn = pdfItemClone.querySelector('.btn-like');
@@ -140,9 +144,23 @@ function initializeSearch() {
         if (query === '') {
             renderGallery(images);
         } else {
+            // Check if PDF item matches query
+            const pdfItem = document.querySelector('.pdf-gallery-item');
+            const pdfTitle = pdfItem ? pdfItem.querySelector('.gallery-title').textContent.toLowerCase() : '';
+            const pdfMatches = pdfTitle.includes(query);
+
+            // Filter images
             const filtered = images.filter(image =>
                 image.title.toLowerCase().includes(query)
             );
+
+            // Store PDF match status
+            if (pdfMatches) {
+                filtered._showPdf = true;
+            } else {
+                filtered._hidePdf = true;
+            }
+
             renderGallery(filtered);
         }
     });
