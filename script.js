@@ -1,6 +1,12 @@
 // ========== Image Data ==========
 const images = [
     {
+        id: 0,
+        title: 'オレキシン受容体拮抗薬',
+        src: 'pdf',
+        isPdf: true
+    },
+    {
         id: 1,
         title: '医療技術の未来',
         src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop'
@@ -70,102 +76,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== Render Gallery ==========
 function renderGallery(imagesToRender) {
-    // Save PDF item before clearing
-    const pdfItem = galleryGrid.querySelector('.pdf-gallery-item');
-    const pdfItemClone = pdfItem ? pdfItem.cloneNode(true) : null;
-
-    // Check if PDF should be shown (based on search)
-    // Show PDF by default, unless explicitly hidden
-    const showPdf = !imagesToRender._hidePdf;
-
     galleryGrid.innerHTML = '';
 
-    // If no images AND no PDF to show
-    if (imagesToRender.length === 0 && !showPdf) {
+    if (imagesToRender.length === 0) {
         noResults.classList.remove('hidden');
         return;
     }
 
     noResults.classList.add('hidden');
 
-    // Restore PDF item first if it should be shown
-    if (pdfItemClone && showPdf) {
-        galleryGrid.appendChild(pdfItemClone);
-        // Restore like button functionality for PDF item
-        const pdfLikeBtn = pdfItemClone.querySelector('.btn-like');
-        if (pdfLikeBtn) {
-            const likeCount = pdfLikeBtn.querySelector('.like-count');
-            likeCount.textContent = getLikeCount(0);
-            if (isLiked(0)) {
-                pdfLikeBtn.classList.add('liked');
-                pdfLikeBtn.querySelector('.like-icon').textContent = '♥️';
-            }
-            pdfLikeBtn.onclick = function() {
-                toggleLike(this, 0);
-            };
-        }
-    }
-
     imagesToRender.forEach((image, index) => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.style.animationDelay = `${index * 0.1}s`;
+        if (image.isPdf) {
+            // Render PDF item
+            const item = document.createElement('div');
+            item.className = 'gallery-item pdf-gallery-item';
+            item.style.animationDelay = `${index * 0.1}s`;
 
-        item.innerHTML = `
-            <img src="${image.src}" alt="${image.title}" class="gallery-image" loading="lazy">
-            <div class="gallery-content">
-                <h3 class="gallery-title">${image.title}</h3>
-                <div class="gallery-actions">
-                    <button class="btn btn-download" onclick="downloadImage(${image.id}, '${image.title}')">
-                        <span>⬇️</span>
-                        <span>ダウンロード</span>
-                    </button>
-                    <button class="btn btn-like" onclick="toggleLike(this, ${image.id})">
-                        <span class="like-icon">♡</span>
-                        <span class="like-count">${getLikeCount(image.id)}</span>
-                    </button>
+            item.innerHTML = `
+                <div class="pdf-viewer">
+                    <iframe
+                        src="./オレキシン受容体拮抗薬まとめ.pdf"
+                        title="オレキシン受容体拮抗薬">
+                    </iframe>
                 </div>
-            </div>
-        `;
+                <div class="gallery-content">
+                    <h3 class="gallery-title">${image.title}</h3>
+                    <div class="gallery-actions">
+                        <a href="./オレキシン受容体拮抗薬まとめ.pdf" download class="btn btn-download">
+                            <span>⬇️</span>
+                            <span>ダウンロード</span>
+                        </a>
+                        <button class="btn btn-like" onclick="toggleLike(this, ${image.id})">
+                            <span class="like-icon">♡</span>
+                            <span class="like-count">${getLikeCount(image.id)}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
 
-        // Set liked state on load
-        const likeBtn = item.querySelector('.btn-like');
-        if (isLiked(image.id)) {
-            likeBtn.classList.add('liked');
-            likeBtn.querySelector('.like-icon').textContent = '♥️';
+            const likeBtn = item.querySelector('.btn-like');
+            if (isLiked(image.id)) {
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('.like-icon').textContent = '♥️';
+            }
+
+            galleryGrid.appendChild(item);
+        } else {
+            // Render image item
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.style.animationDelay = `${index * 0.1}s`;
+
+            item.innerHTML = `
+                <img src="${image.src}" alt="${image.title}" class="gallery-image" loading="lazy">
+                <div class="gallery-content">
+                    <h3 class="gallery-title">${image.title}</h3>
+                    <div class="gallery-actions">
+                        <button class="btn btn-download" onclick="downloadImage(${image.id}, '${image.title}')">
+                            <span>⬇️</span>
+                            <span>ダウンロード</span>
+                        </button>
+                        <button class="btn btn-like" onclick="toggleLike(this, ${image.id})">
+                            <span class="like-icon">♡</span>
+                            <span class="like-count">${getLikeCount(image.id)}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            const likeBtn = item.querySelector('.btn-like');
+            if (isLiked(image.id)) {
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('.like-icon').textContent = '♥️';
+            }
+
+            galleryGrid.appendChild(item);
         }
-
-        galleryGrid.appendChild(item);
     });
 }
-
-// PDF title constant
-const PDF_TITLE = 'オレキシン受容体拮抗薬';
 
 // ========== Search Functionality ==========
 function performSearch() {
     const query = searchInput.value.toLowerCase().trim();
-    console.log('Search query:', query); // Debug log
 
     if (query === '') {
         renderGallery(images);
     } else {
-        // Check if PDF title matches query
-        const pdfMatches = PDF_TITLE.toLowerCase().includes(query);
-        console.log('PDF matches:', pdfMatches); // Debug log
-
-        // Filter images
+        // Filter all items (including PDF)
         const filtered = images.filter(image =>
             image.title.toLowerCase().includes(query)
         );
-
-        console.log('Filtered images count:', filtered.length); // Debug log
-
-        // Store PDF match status
-        filtered._showPdf = pdfMatches;  // Always set, don't rely on undefined
-        if (!pdfMatches) {
-            filtered._hidePdf = true;
-        }
 
         renderGallery(filtered);
     }
