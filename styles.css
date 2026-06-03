@@ -429,78 +429,71 @@ body {
     background: #0056b3;
 }
 
-/* ========== PDF Container ========== */
-.pdf-container {
-    max-width: 1200px;
-    margin: 0 auto 50px;
-    padding: 30px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    transition: var(--transition);
+/* ========== PDF Gallery Item ========== */
+.pdf-gallery-item {
+    grid-column: span 1;
 }
 
-.pdf-container:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(0, 113, 227, 0.2);
-}
-
-.pdf-container h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: var(--text-dark);
-    background: linear-gradient(135deg, var(--primary-color) 0%, #00d4ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.pdf-container iframe {
+.pdf-viewer {
     width: 100%;
-    height: 700px;
+    height: 220px;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    background: var(--secondary-color);
+}
+
+.pdf-viewer iframe {
+    width: 100%;
+    height: 100%;
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    transition: var(--transition);
 }
 
-.pdf-container iframe:hover {
-    box-shadow: 0 15px 40px rgba(0, 113, 227, 0.25);
+.pdf-gallery-item .gallery-content {
+    padding: 15px;
+    background: var(--glass-bg);
 }
 
-/* PDF Container Responsive */
+.pdf-gallery-item .gallery-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.pdf-gallery-item .gallery-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.pdf-gallery-item .btn-download {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive PDF Gallery Item */
 @media (max-width: 768px) {
-    .pdf-container {
-        padding: 20px;
-        margin-bottom: 40px;
+    .pdf-viewer {
+        height: 180px;
     }
 
-    .pdf-container h2 {
-        font-size: 1.4rem;
-        margin-bottom: 20px;
-    }
-
-    .pdf-container iframe {
-        height: 500px;
+    .pdf-gallery-item .gallery-content {
+        padding: 12px;
     }
 }
 
 @media (max-width: 480px) {
-    .pdf-container {
-        padding: 15px;
-        margin-bottom: 30px;
-        border-radius: 15px;
+    .pdf-viewer {
+        height: 140px;
     }
 
-    .pdf-container h2 {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
+    .pdf-gallery-item .gallery-content {
+        padding: 10px;
     }
 
-    .pdf-container iframe {
-        height: 400px;
+    .pdf-gallery-item .gallery-title {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
     }
 }

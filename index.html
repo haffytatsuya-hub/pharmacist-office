@@ -27,15 +27,6 @@
     </header>
 
     <main class="container">
-        <!-- PDF Document Section -->
-        <div class="pdf-container">
-            <h2>医学資料</h2>
-            <iframe
-                src="./オレキシン受容体拮抗薬まとめ.pdf"
-                title="オレキシン受容体拮抗薬まとめ">
-            </iframe>
-        </div>
-
         <!-- Search Bar -->
         <div class="search-container">
             <input
@@ -50,6 +41,28 @@
 
         <!-- Gallery Grid -->
         <div class="gallery-grid" id="galleryGrid">
+            <!-- PDF Document as Gallery Item -->
+            <div class="gallery-item pdf-gallery-item">
+                <div class="pdf-viewer">
+                    <iframe
+                        src="./オレキシン受容体拮抗薬まとめ.pdf"
+                        title="オレキシン受容体拮抗薬まとめ">
+                    </iframe>
+                </div>
+                <div class="gallery-content">
+                    <h3 class="gallery-title">医学資料</h3>
+                    <div class="gallery-actions">
+                        <a href="./オレキシン受容体拮抗薬まとめ.pdf" download class="btn btn-download">
+                            <span>⬇️</span>
+                            <span>ダウンロード</span>
+                        </a>
+                        <button class="btn btn-like" onclick="toggleLike(this, 0)">
+                            <span class="like-icon">♡</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <!-- Images will be loaded here by JavaScript -->
         </div>
 
