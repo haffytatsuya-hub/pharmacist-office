@@ -55,6 +55,7 @@ const images = [
 // ========== DOM Elements ==========
 const galleryGrid = document.getElementById('galleryGrid');
 const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
 const noResults = document.getElementById('noResults');
 const parallaxItems = document.querySelectorAll('.parallax-item');
 
@@ -62,6 +63,7 @@ const parallaxItems = document.querySelectorAll('.parallax-item');
 document.addEventListener('DOMContentLoaded', () => {
     renderGallery(images);
     initializeSearch();
+    initializeSearchBtn();
     initializeParallax();
     loadLikes();
 });
@@ -164,6 +166,19 @@ function initializeSearch() {
             renderGallery(filtered);
         }
     });
+}
+
+// ========== Search Button ==========
+function initializeSearchBtn() {
+    if (searchBtn) {
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Trigger search manually
+            const event = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(event);
+            searchInput.focus();
+        });
+    }
 }
 
 // ========== Download Functionality ==========

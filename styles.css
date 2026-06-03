@@ -153,7 +153,25 @@ body {
     transform: translateY(-50%);
     font-size: 1.2rem;
     color: var(--text-light);
-    pointer-events: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon:hover {
+    color: var(--primary-color);
+    background: rgba(0, 217, 217, 0.1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.search-icon:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* ========== Gallery Grid ========== */
