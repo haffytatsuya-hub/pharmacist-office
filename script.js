@@ -73,11 +73,11 @@ function renderGallery(imagesToRender) {
     const pdfItemClone = pdfItem ? pdfItem.cloneNode(true) : null;
 
     // Check if PDF should be shown (based on search)
-    const showPdf = imagesToRender._showPdf !== false; // Show PDF by default unless _hidePdf is true
-    const hidePdf = imagesToRender._hidePdf === true;
+    const showPdf = imagesToRender._showPdf === true || imagesToRender._hidePdf !== true;
 
     galleryGrid.innerHTML = '';
 
+    // If no images AND no PDF to show
     if (imagesToRender.length === 0 && !showPdf) {
         noResults.classList.remove('hidden');
         return;
@@ -86,7 +86,7 @@ function renderGallery(imagesToRender) {
     noResults.classList.add('hidden');
 
     // Restore PDF item first if it should be shown
-    if (pdfItemClone && showPdf && !hidePdf) {
+    if (pdfItemClone && showPdf) {
         galleryGrid.appendChild(pdfItemClone);
         // Restore like button functionality for PDF item
         const pdfLikeBtn = pdfItemClone.querySelector('.btn-like');
