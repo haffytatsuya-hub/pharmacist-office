@@ -75,7 +75,8 @@ function renderGallery(imagesToRender) {
     const pdfItemClone = pdfItem ? pdfItem.cloneNode(true) : null;
 
     // Check if PDF should be shown (based on search)
-    const showPdf = imagesToRender._showPdf === true || imagesToRender._hidePdf !== true;
+    // Show PDF by default, unless explicitly hidden
+    const showPdf = !imagesToRender._hidePdf;
 
     galleryGrid.innerHTML = '';
 
