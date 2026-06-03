@@ -68,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== Render Gallery ==========
 function renderGallery(imagesToRender) {
+    // Save PDF item before clearing
+    const pdfItem = galleryGrid.querySelector('.pdf-gallery-item');
+    const pdfItemClone = pdfItem ? pdfItem.cloneNode(true) : null;
+
     galleryGrid.innerHTML = '';
 
     if (imagesToRender.length === 0) {
@@ -76,6 +80,24 @@ function renderGallery(imagesToRender) {
     }
 
     noResults.classList.add('hidden');
+
+    // Restore PDF item first
+    if (pdfItemClone) {
+        galleryGrid.appendChild(pdfItemClone);
+        // Restore like button functionality for PDF item
+        const pdfLikeBtn = pdfItemClone.querySelector('.btn-like');
+        if (pdfLikeBtn) {
+            const likeCount = pdfLikeBtn.querySelector('.like-count');
+            likeCount.textContent = getLikeCount(0);
+            if (isLiked(0)) {
+                pdfLikeBtn.classList.add('liked');
+                pdfLikeBtn.querySelector('.like-icon').textContent = '♥️';
+            }
+            pdfLikeBtn.onclick = function() {
+                toggleLike(this, 0);
+            };
+        }
+    }
 
     imagesToRender.forEach((image, index) => {
         const item = document.createElement('div');
