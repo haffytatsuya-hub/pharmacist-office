@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薬剤師のオフィス - Pharmacist's Office</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Parallax Background -->
+    <div class="parallax-bg">
+        <div class="parallax-item parallax-1">💊</div>
+        <div class="parallax-item parallax-2">⚕️</div>
+        <div class="parallax-item parallax-3">🧪</div>
+        <div class="parallax-item parallax-4">💉</div>
+        <div class="parallax-item parallax-5">🩺</div>
+        <div class="parallax-item parallax-6">💊</div>
+        <div class="parallax-item parallax-7">🔬</div>
+        <div class="parallax-item parallax-8">⚕️</div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1 class="title">薬剤師のオフィス</h1>
+            <p class="motto">正しい努力は嘘をつかない</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="画像を検索..."
+                aria-label="画像を検索"
+            >
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Images will be loaded here by JavaScript -->
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="no-results hidden">
+            検索結果がありません
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 薬剤師のオフィス. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
