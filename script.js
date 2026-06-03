@@ -145,22 +145,25 @@ const PDF_TITLE = 'オレキシン受容体拮抗薬';
 // ========== Search Functionality ==========
 function performSearch() {
     const query = searchInput.value.toLowerCase().trim();
+    console.log('Search query:', query); // Debug log
 
     if (query === '') {
         renderGallery(images);
     } else {
         // Check if PDF title matches query
         const pdfMatches = PDF_TITLE.toLowerCase().includes(query);
+        console.log('PDF matches:', pdfMatches); // Debug log
 
         // Filter images
         const filtered = images.filter(image =>
             image.title.toLowerCase().includes(query)
         );
 
+        console.log('Filtered images count:', filtered.length); // Debug log
+
         // Store PDF match status
-        if (pdfMatches) {
-            filtered._showPdf = true;
-        } else {
+        filtered._showPdf = pdfMatches;  // Always set, don't rely on undefined
+        if (!pdfMatches) {
             filtered._hidePdf = true;
         }
 
