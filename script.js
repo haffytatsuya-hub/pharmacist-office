@@ -169,11 +169,23 @@ function performSearch() {
 }
 
 function initializeSearch() {
+    if (!searchInput) {
+        console.error('Search input element not found');
+        return;
+    }
+
     // Handle input event (real-time search)
     searchInput.addEventListener('input', performSearch);
 
     // Handle change event (for programmatic input)
     searchInput.addEventListener('change', performSearch);
+
+    // Handle keypress event for Enter key
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
 }
 
 // ========== Search Button ==========
