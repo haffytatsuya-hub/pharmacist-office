@@ -49,26 +49,6 @@ const images = [
         preview: './previews/コロナウイルス治療薬まとめ.pdf.png',
         isPdf: true
     },
-    {
-        id: 7,
-        title: '医療技術の未来',
-        src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop'
-    },
-    {
-        id: 8,
-        title: '医学研究',
-        src: 'https://images.unsplash.com/photo-1530026405186-a32203b69519?w=500&h=400&fit=crop'
-    },
-    {
-        id: 9,
-        title: '科学技術',
-        src: 'https://images.unsplash.com/photo-1579154204601-01d430e8e56b?w=500&h=400&fit=crop'
-    },
-    {
-        id: 10,
-        title: '医療イノベーション',
-        src: 'https://images.unsplash.com/photo-1532996122724-8f3c58e9c869?w=500&h=400&fit=crop'
-    }
 ];
 
 // ========== DOM Elements ==========

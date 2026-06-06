@@ -129,6 +129,21 @@ body::before {
     z-index: 1;
 }
 
+.header-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 16px;
+    border-radius: 20px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
 .title {
     font-size: 3.5rem;
     font-weight: 700;
@@ -437,6 +452,12 @@ body::before {
 }
 
 @media (max-width: 480px) {
+    .header-logo {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
     .title {
         font-size: 2rem;
     }
