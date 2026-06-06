@@ -1,3 +1,61 @@
+// ========== Login System ==========
+const PASS_HASH = '5a0e42e1f3c8b9d7'; // hashed
+function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+    }
+    return (hash >>> 0).toString(16).padStart(8, '0');
+}
+
+(function initLogin() {
+    // Check if already logged in this session
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+        showMainSite();
+        return;
+    }
+
+    const loginScreen = document.getElementById('loginScreen');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+
+    if (!loginBtn) return;
+
+    function attemptLogin() {
+        const password = passwordInput.value;
+        if (password === 'yaku-office') {
+            loginError.classList.add('hidden');
+            sessionStorage.setItem('loggedIn', 'true');
+            loginScreen.classList.add('fade-out');
+            setTimeout(() => {
+                showMainSite();
+            }, 500);
+        } else {
+            loginError.classList.remove('hidden');
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    }
+
+    loginBtn.addEventListener('click', attemptLogin);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') attemptLogin();
+    });
+})();
+
+function showMainSite() {
+    const loginScreen = document.getElementById('loginScreen');
+    const mainSite = document.getElementById('mainSite');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (mainSite) {
+        mainSite.classList.remove('hidden');
+        mainSite.classList.add('fade-in');
+    }
+}
+
 // ========== Image Data ==========
 const images = [
     {

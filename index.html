@@ -7,54 +7,80 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Parallax Background -->
-    <div class="parallax-bg">
-        <div class="parallax-item parallax-1">💊</div>
-        <div class="parallax-item parallax-2">⚕️</div>
-        <div class="parallax-item parallax-3">🧪</div>
-        <div class="parallax-item parallax-4">💉</div>
-        <div class="parallax-item parallax-5">🩺</div>
-        <div class="parallax-item parallax-6">💊</div>
-        <div class="parallax-item parallax-7">🔬</div>
-        <div class="parallax-item parallax-8">⚕️</div>
+    <!-- ========== Login Screen ========== -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <img src="./logo.png" alt="薬剤師のオフィス ロゴ" class="login-logo">
+            <h1 class="login-title">薬剤師のオフィス</h1>
+            <p class="login-subtitle">正しい努力は嘘をつかない</p>
+            <div class="login-form">
+                <div class="login-input-wrapper">
+                    <span class="login-input-icon">🔒</span>
+                    <input
+                        type="password"
+                        id="passwordInput"
+                        class="login-input"
+                        placeholder="パスワードを入力..."
+                        autocomplete="off"
+                    >
+                </div>
+                <button id="loginBtn" class="login-btn">ログイン</button>
+                <p id="loginError" class="login-error hidden">パスワードが正しくありません</p>
+            </div>
+        </div>
     </div>
 
-    <header class="header">
-        <canvas id="headerCanvas"></canvas>
-        <div class="header-content">
-            <img src="./logo.png" alt="薬剤師のオフィス ロゴ" class="header-logo">
-            <h1 class="title">薬剤師のオフィス</h1>
-            <p class="motto">正しい努力は嘘をつかない</p>
-        </div>
-    </header>
-
-    <main class="container">
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input
-                type="text"
-                id="searchInput"
-                class="search-input"
-                placeholder="画像を検索..."
-                aria-label="画像を検索"
-            >
-            <button class="search-icon" id="searchBtn" aria-label="検索">🔍</button>
+    <!-- ========== Main Site (hidden until login) ========== -->
+    <div id="mainSite" class="main-site hidden">
+        <!-- Parallax Background -->
+        <div class="parallax-bg">
+            <div class="parallax-item parallax-1">💊</div>
+            <div class="parallax-item parallax-2">⚕️</div>
+            <div class="parallax-item parallax-3">🧪</div>
+            <div class="parallax-item parallax-4">💉</div>
+            <div class="parallax-item parallax-5">🩺</div>
+            <div class="parallax-item parallax-6">💊</div>
+            <div class="parallax-item parallax-7">🔬</div>
+            <div class="parallax-item parallax-8">⚕️</div>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Gallery items rendered by script.js -->
-        </div>
+        <header class="header">
+            <canvas id="headerCanvas"></canvas>
+            <div class="header-content">
+                <img src="./logo.png" alt="薬剤師のオフィス ロゴ" class="header-logo">
+                <h1 class="title">薬剤師のオフィス</h1>
+                <p class="motto">正しい努力は嘘をつかない</p>
+            </div>
+        </header>
 
-        <!-- No Results Message -->
-        <div id="noResults" class="no-results hidden">
-            検索結果がありません
-        </div>
-    </main>
+        <main class="container">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="画像を検索..."
+                    aria-label="画像を検索"
+                >
+                <button class="search-icon" id="searchBtn" aria-label="検索">🔍</button>
+            </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 薬剤師のオフィス. All rights reserved.</p>
-    </footer>
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items rendered by script.js -->
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results hidden">
+                検索結果がありません
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 薬剤師のオフィス. All rights reserved.</p>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
