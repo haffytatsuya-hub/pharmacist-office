@@ -10,8 +10,26 @@ function simpleHash(str) {
     return (hash >>> 0).toString(16).padStart(8, '0');
 }
 
-(function initLogin() {
-    // Check if already logged in this session
+function showMainSite() {
+    const loginScreen = document.getElementById('loginScreen');
+    const mainSite = document.getElementById('mainSite');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (mainSite) {
+        mainSite.classList.remove('hidden');
+        mainSite.classList.add('fade-in');
+        // Initialize main site components after showing
+        setTimeout(() => {
+            renderGallery(images);
+            initializeSearch();
+            initializeSearchBtn();
+            initializeParallax();
+            loadLikes();
+            initHeaderAnimation();
+        }, 100);
+    }
+}
+
+function initLogin() {
     if (sessionStorage.getItem('loggedIn') === 'true') {
         showMainSite();
         return;
@@ -44,16 +62,6 @@ function simpleHash(str) {
     passwordInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') attemptLogin();
     });
-})();
-
-function showMainSite() {
-    const loginScreen = document.getElementById('loginScreen');
-    const mainSite = document.getElementById('mainSite');
-    if (loginScreen) loginScreen.style.display = 'none';
-    if (mainSite) {
-        mainSite.classList.remove('hidden');
-        mainSite.classList.add('fade-in');
-    }
 }
 
 // ========== Image Data ==========
@@ -118,12 +126,15 @@ const parallaxItems = document.querySelectorAll('.parallax-item');
 
 // ========== Initialize ==========
 document.addEventListener('DOMContentLoaded', () => {
-    renderGallery(images);
-    initializeSearch();
-    initializeSearchBtn();
-    initializeParallax();
-    loadLikes();
-    initHeaderAnimation();
+    initLogin();
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+        renderGallery(images);
+        initializeSearch();
+        initializeSearchBtn();
+        initializeParallax();
+        loadLikes();
+        initHeaderAnimation();
+    }
 });
 
 // ========== Header Canvas Animation ==========
