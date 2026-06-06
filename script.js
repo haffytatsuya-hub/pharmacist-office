@@ -82,7 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== Render Gallery ==========
 function renderGallery(imagesToRender) {
+    // Save static PDF items before clearing
+    const pdfItems = galleryGrid.querySelectorAll('.pdf-gallery-item');
+    const pdfItemsBackup = Array.from(pdfItems).map(item => item.cloneNode(true));
+
     galleryGrid.innerHTML = '';
+
+    // Restore PDF items first
+    pdfItemsBackup.forEach(item => {
+        galleryGrid.appendChild(item);
+    });
 
     if (imagesToRender.length === 0) {
         noResults.classList.remove('hidden');
