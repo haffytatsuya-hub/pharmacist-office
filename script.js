@@ -115,7 +115,7 @@ function renderGallery(imagesToRender) {
                             <span>ダウンロード</span>
                         </a>
                         <button class="btn btn-like" onclick="toggleLike(this, ${image.id})">
-                            <span class="like-icon">♡</span>
+                            <span class="like-icon">👍</span>
                             <span class="like-count">${getLikeCount(image.id)}</span>
                         </button>
                     </div>
@@ -125,7 +125,7 @@ function renderGallery(imagesToRender) {
             const likeBtn = item.querySelector('.btn-like');
             if (isLiked(image.id)) {
                 likeBtn.classList.add('liked');
-                likeBtn.querySelector('.like-icon').textContent = '♥️';
+                likeBtn.querySelector('.like-icon').textContent = '👍';
             }
 
             galleryGrid.appendChild(item);
@@ -145,7 +145,7 @@ function renderGallery(imagesToRender) {
                             <span>ダウンロード</span>
                         </button>
                         <button class="btn btn-like" onclick="toggleLike(this, ${image.id})">
-                            <span class="like-icon">♡</span>
+                            <span class="like-icon">👍</span>
                             <span class="like-count">${getLikeCount(image.id)}</span>
                         </button>
                     </div>
@@ -155,7 +155,7 @@ function renderGallery(imagesToRender) {
             const likeBtn = item.querySelector('.btn-like');
             if (isLiked(image.id)) {
                 likeBtn.classList.add('liked');
-                likeBtn.querySelector('.like-icon').textContent = '♥️';
+                likeBtn.querySelector('.like-icon').textContent = '👍';
             }
 
             galleryGrid.appendChild(item);
@@ -229,23 +229,30 @@ function downloadImage(id, title) {
     showNotification(`"${title}" をダウンロード中...`);
 }
 
-// ========== Like Functionality ==========
+// ========== Good (👍) Functionality ==========
 function toggleLike(button, id) {
-    button.classList.toggle('liked');
-
     const likeIcon = button.querySelector('.like-icon');
     const likeCount = button.querySelector('.like-count');
+    const likeCounts = JSON.parse(localStorage.getItem('likeCounts')) || {};
+    const liked = JSON.parse(localStorage.getItem('likes')) || {};
 
-    if (button.classList.contains('liked')) {
-        likeIcon.textContent = '♥️';
-        addLike(id);
+    if (liked[id]) {
+        // Already liked → remove
+        liked[id] = false;
+        likeCounts[id] = Math.max((likeCounts[id] || 1) - 1, 0);
+        button.classList.remove('liked');
+        likeIcon.textContent = '👍';
     } else {
-        likeIcon.textContent = '♡';
-        removeLike(id);
+        // Not liked → add +1
+        liked[id] = true;
+        likeCounts[id] = (likeCounts[id] || 0) + 1;
+        button.classList.add('liked');
+        likeIcon.textContent = '👍';
     }
 
-    likeCount.textContent = getLikeCount(id);
-    saveLikes();
+    likeCount.textContent = likeCounts[id];
+    localStorage.setItem('likes', JSON.stringify(liked));
+    localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
 }
 
 function isLiked(id) {
@@ -253,44 +260,18 @@ function isLiked(id) {
     return likes[id] || false;
 }
 
-function addLike(id) {
-    const likes = JSON.parse(localStorage.getItem('likes')) || {};
-    likes[id] = true;
-    localStorage.setItem('likes', JSON.stringify(likes));
-}
-
-function removeLike(id) {
-    const likes = JSON.parse(localStorage.getItem('likes')) || {};
-    delete likes[id];
-    localStorage.setItem('likes', JSON.stringify(likes));
-}
-
 function getLikeCount(id) {
-    const likes = JSON.parse(localStorage.getItem('likeCounts')) || {};
-    return likes[id] || 0;
-}
-
-function saveLikes() {
-    const likeCounts = {};
-    images.forEach(image => {
-        if (isLiked(image.id)) {
-            likeCounts[image.id] = (likeCounts[image.id] || 0) + 1;
-        }
-    });
-    localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
+    const likeCounts = JSON.parse(localStorage.getItem('likeCounts')) || {};
+    return likeCounts[id] || 0;
 }
 
 function loadLikes() {
-    // Initialize like counts from localStorage
-    const likes = JSON.parse(localStorage.getItem('likes')) || {};
     const likeCounts = JSON.parse(localStorage.getItem('likeCounts')) || {};
-
     images.forEach(image => {
-        if (!likeCounts[image.id]) {
-            likeCounts[image.id] = Math.floor(Math.random() * 100);
+        if (likeCounts[image.id] === undefined) {
+            likeCounts[image.id] = 0;
         }
     });
-
     localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
 }
 

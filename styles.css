@@ -277,20 +277,20 @@ body {
 }
 
 .btn-like {
-    background: rgba(255, 100, 130, 0.1);
-    color: #ff6482;
-    border: 1px solid rgba(255, 100, 130, 0.3);
+    background: rgba(0, 150, 255, 0.1);
+    color: #0096ff;
+    border: 1px solid rgba(0, 150, 255, 0.3);
 }
 
 .btn-like:hover {
-    background: rgba(255, 100, 130, 0.2);
-    border-color: rgba(255, 100, 130, 0.5);
+    background: rgba(0, 150, 255, 0.2);
+    border-color: rgba(0, 150, 255, 0.5);
 }
 
 .btn-like.liked {
-    background: #ff6482;
+    background: #0096ff;
     color: white;
-    border-color: #ff6482;
+    border-color: #0096ff;
 }
 
 /* ========== No Results ========== */
