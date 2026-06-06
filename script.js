@@ -103,10 +103,9 @@ function renderGallery(imagesToRender) {
 
             item.innerHTML = `
                 <div class="pdf-viewer">
-                    <iframe
-                        src="./${encodedPdfFile}"
-                        title="${image.title}">
-                    </iframe>
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(0, 217, 217, 0.1) 0%, rgba(0, 217, 217, 0.05) 100%); font-size: 3rem;">
+                        📄
+                    </div>
                 </div>
                 <div class="gallery-content">
                     <h3 class="gallery-title">${image.title}</h3>
