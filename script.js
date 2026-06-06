@@ -4,42 +4,49 @@ const images = [
         id: 0,
         title: 'オレキシン受容体拮抗薬',
         pdfFile: 'オレキシン受容体拮抗薬まとめ.pdf',
+        preview: './previews/オレキシン受容体拮抗薬まとめ.pdf.png',
         isPdf: true
     },
     {
         id: 1,
         title: '鼻噴霧用ステロイド薬まとめ',
         pdfFile: '鼻噴霧用ステロイド薬まとめ.pdf',
+        preview: './previews/鼻噴霧用ステロイド薬まとめ.pdf.png',
         isPdf: true
     },
     {
         id: 2,
         title: 'ベンゾジアゼピン系睡眠薬まとめ①',
         pdfFile: 'ベンゾジアゼピン系睡眠薬まとめ①.pdf',
+        preview: './previews/ベンゾジアゼピン系睡眠薬まとめ①.pdf.png',
         isPdf: true
     },
     {
         id: 3,
         title: 'ベンゾジアゼピン系睡眠薬まとめ②',
         pdfFile: 'ベンゾジアゼピン系睡眠薬まとめ②.pdf',
+        preview: './previews/ベンゾジアゼピン系睡眠薬まとめ②.pdf.png',
         isPdf: true
     },
     {
         id: 4,
         title: 'アラミストとフルナーゼ比較表',
         pdfFile: 'アラミストとフルナーゼ比較表.pdf',
+        preview: './previews/アラミストとフルナーゼ比較表.pdf.png',
         isPdf: true
     },
     {
         id: 5,
         title: 'インフルエンザウイルス治療薬まとめ',
         pdfFile: 'インフルエンザウイルス治療薬まとめ.pdf',
+        preview: './previews/インフルエンザウイルス治療薬まとめ.pdf.png',
         isPdf: true
     },
     {
         id: 6,
         title: 'コロナウイルス治療薬まとめ',
         pdfFile: 'コロナウイルス治療薬まとめ.pdf',
+        preview: './previews/コロナウイルス治療薬まとめ.pdf.png',
         isPdf: true
     },
     {
@@ -99,7 +106,7 @@ function renderGallery(imagesToRender) {
             item.style.animationDelay = `${index * 0.1}s`;
 
             item.innerHTML = `
-                <div class="pdf-viewer" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(0, 217, 217, 0.1) 0%, rgba(0, 217, 217, 0.05) 100%); font-size: 4rem;">📄</div>
+                <img src="${image.preview}" alt="${image.title}" class="gallery-image" loading="lazy">
                 <div class="gallery-content">
                     <h3 class="gallery-title">${image.title}</h3>
                     <div class="gallery-actions">
