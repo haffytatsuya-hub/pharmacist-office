@@ -3,52 +3,58 @@ const images = [
     {
         id: 0,
         title: 'オレキシン受容体拮抗薬',
-        src: 'pdf',
+        pdfFile: 'オレキシン受容体拮抗薬まとめ.pdf',
         isPdf: true
     },
     {
         id: 1,
+        title: '鼻噴霧用ステロイド薬まとめ',
+        pdfFile: '鼻噴霧用ステロイド薬まとめ.pdf',
+        isPdf: true
+    },
+    {
+        id: 2,
+        title: 'ベンゾジアゼピン系睡眠薬まとめ①',
+        pdfFile: 'ベンゾジアゼピン系睡眠薬まとめ①.pdf',
+        isPdf: true
+    },
+    {
+        id: 3,
+        title: 'ベンゾジアゼピン系睡眠薬まとめ②',
+        pdfFile: 'ベンゾジアゼピン系睡眠薬まとめ②.pdf',
+        isPdf: true
+    },
+    {
+        id: 4,
+        title: 'アラミストとフルナーゼ比較表',
+        pdfFile: 'アラミストとフルナーゼ比較表.pdf',
+        isPdf: true
+    },
+    {
+        id: 5,
+        title: 'インフルエンザウイルス治療薬まとめ',
+        pdfFile: 'インフルエンザウイルス治療薬まとめ.pdf',
+        isPdf: true
+    },
+    {
+        id: 6,
+        title: 'コロナウイルス治療薬まとめ',
+        pdfFile: 'コロナウイルス治療薬まとめ.pdf',
+        isPdf: true
+    },
+    {
+        id: 7,
         title: '医療技術の未来',
         src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop'
     },
     {
-        id: 2,
-        title: '薬剤研究',
-        src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop'
-    },
-    {
-        id: 3,
-        title: 'ラボラトリー分析',
-        src: 'https://images.unsplash.com/photo-1530026405186-a32203b69519?w=500&h=400&fit=crop'
-    },
-    {
-        id: 4,
-        title: '医学知識',
-        src: 'https://images.unsplash.com/photo-1579154204601-01d430e8e56b?w=500&h=400&fit=crop'
-    },
-    {
-        id: 5,
-        title: 'ヘルスケア',
-        src: 'https://images.unsplash.com/photo-1532996122724-8f3c58e9c869?w=500&h=400&fit=crop'
-    },
-    {
-        id: 6,
-        title: '医療専門家',
-        src: 'https://images.unsplash.com/photo-1579154204601-01d430e8e56b?w=500&h=400&fit=crop'
-    },
-    {
-        id: 7,
-        title: '科学実験',
-        src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop'
-    },
-    {
         id: 8,
-        title: '薬局管理',
+        title: '医学研究',
         src: 'https://images.unsplash.com/photo-1530026405186-a32203b69519?w=500&h=400&fit=crop'
     },
     {
         id: 9,
-        title: 'デジタルヘルス',
+        title: '科学技術',
         src: 'https://images.unsplash.com/photo-1579154204601-01d430e8e56b?w=500&h=400&fit=crop'
     },
     {
@@ -95,14 +101,14 @@ function renderGallery(imagesToRender) {
             item.innerHTML = `
                 <div class="pdf-viewer">
                     <iframe
-                        src="./オレキシン受容体拮抗薬まとめ.pdf"
-                        title="オレキシン受容体拮抗薬">
+                        src="./${image.pdfFile}"
+                        title="${image.title}">
                     </iframe>
                 </div>
                 <div class="gallery-content">
                     <h3 class="gallery-title">${image.title}</h3>
                     <div class="gallery-actions">
-                        <a href="./オレキシン受容体拮抗薬まとめ.pdf" download class="btn btn-download">
+                        <a href="./${image.pdfFile}" download class="btn btn-download">
                             <span>⬇️</span>
                             <span>ダウンロード</span>
                         </a>
