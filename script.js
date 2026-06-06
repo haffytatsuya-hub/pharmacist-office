@@ -82,16 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== Render Gallery ==========
 function renderGallery(imagesToRender) {
-    // Save static PDF items before clearing
-    const pdfItems = galleryGrid.querySelectorAll('.pdf-gallery-item');
-    const pdfItemsBackup = Array.from(pdfItems).map(item => item.cloneNode(true));
-
     galleryGrid.innerHTML = '';
-
-    // Restore PDF items first
-    pdfItemsBackup.forEach(item => {
-        galleryGrid.appendChild(item);
-    });
 
     if (imagesToRender.length === 0) {
         noResults.classList.remove('hidden');
@@ -102,18 +93,13 @@ function renderGallery(imagesToRender) {
 
     imagesToRender.forEach((image, index) => {
         if (image.isPdf) {
-            // Render PDF item (same way as the original OrexinPDF)
+            // Render PDF item
             const item = document.createElement('div');
             item.className = 'gallery-item pdf-gallery-item';
             item.style.animationDelay = `${index * 0.1}s`;
 
             item.innerHTML = `
-                <div class="pdf-viewer">
-                    <iframe
-                        src="./${image.pdfFile}"
-                        title="${image.title}">
-                    </iframe>
-                </div>
+                <div class="pdf-viewer" style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(0, 217, 217, 0.1) 0%, rgba(0, 217, 217, 0.05) 100%); font-size: 3rem;">📄</div>
                 <div class="gallery-content">
                     <h3 class="gallery-title">${image.title}</h3>
                     <div class="gallery-actions">
