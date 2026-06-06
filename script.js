@@ -146,7 +146,8 @@ function initHeaderAnimation() {
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 100) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0, 217, 217, ${0.08 * (1 - dist / 100)})`;
+                    const connColor = (i + j) % 2 === 0 ? `rgba(0, 217, 217, ${0.08 * (1 - dist / 100)})` : `rgba(168, 181, 197, ${0.1 * (1 - dist / 100)})`;
+                    ctx.strokeStyle = connColor;
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -183,7 +184,7 @@ function initHeaderAnimation() {
 
                 // Strand 2
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(0, 180, 220, ${alpha})`;
+                ctx.strokeStyle = `rgba(168, 181, 197, ${alpha + 0.05})`;
                 ctx.moveTo(centerX - prevOffset, (i - 1) / dnaPoints * h);
                 ctx.lineTo(x2, y);
                 ctx.stroke();
@@ -206,7 +207,7 @@ function initHeaderAnimation() {
             ctx.arc(x1, y, 2.5, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.fillStyle = `rgba(0, 180, 220, ${alpha + 0.1})`;
+            ctx.fillStyle = `rgba(168, 181, 197, ${alpha + 0.15})`;
             ctx.arc(x2, y, 2.5, 0, Math.PI * 2);
             ctx.fill();
         }
@@ -230,8 +231,8 @@ function initHeaderAnimation() {
         const orb2X = w * 0.7 + Math.cos(time * 0.0012) * 40;
         const orb2Y = h * 0.6 + Math.sin(time * 0.001) * 25;
         const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, 60);
-        grad2.addColorStop(0, 'rgba(0, 180, 255, 0.1)');
-        grad2.addColorStop(1, 'rgba(0, 180, 255, 0)');
+        grad2.addColorStop(0, 'rgba(168, 181, 197, 0.15)');
+        grad2.addColorStop(1, 'rgba(168, 181, 197, 0)');
         ctx.fillStyle = grad2;
         ctx.fillRect(orb2X - 60, orb2Y - 60, 120, 120);
     }
@@ -266,7 +267,10 @@ function initHeaderAnimation() {
 
             const currentOpacity = p.opacity * (0.7 + Math.sin(p.pulse) * 0.3);
             ctx.beginPath();
-            ctx.fillStyle = `rgba(0, 217, 217, ${currentOpacity})`;
+            const pColor = particles.indexOf(p) % 2 === 0
+                ? `rgba(0, 217, 217, ${currentOpacity})`
+                : `rgba(168, 181, 197, ${currentOpacity + 0.1})`;
+            ctx.fillStyle = pColor;
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
             ctx.fill();
         });
