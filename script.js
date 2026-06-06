@@ -98,17 +98,20 @@ function renderGallery(imagesToRender) {
             item.className = 'gallery-item pdf-gallery-item';
             item.style.animationDelay = `${index * 0.1}s`;
 
+            // URL encode the PDF filename
+            const encodedPdfFile = encodeURI(image.pdfFile);
+
             item.innerHTML = `
                 <div class="pdf-viewer">
                     <iframe
-                        src="./${image.pdfFile}"
+                        src="./${encodedPdfFile}"
                         title="${image.title}">
                     </iframe>
                 </div>
                 <div class="gallery-content">
                     <h3 class="gallery-title">${image.title}</h3>
                     <div class="gallery-actions">
-                        <a href="./${image.pdfFile}" download class="btn btn-download">
+                        <a href="./${encodedPdfFile}" download class="btn btn-download">
                             <span>⬇️</span>
                             <span>ダウンロード</span>
                         </a>
