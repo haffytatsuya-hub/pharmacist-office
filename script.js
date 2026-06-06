@@ -85,7 +85,219 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSearchBtn();
     initializeParallax();
     loadLikes();
+    initHeaderAnimation();
 });
+
+// ========== Header Canvas Animation ==========
+function initHeaderAnimation() {
+    const canvas = document.getElementById('headerCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        const header = canvas.parentElement;
+        canvas.width = header.offsetWidth * window.devicePixelRatio;
+        canvas.height = header.offsetHeight * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const W = () => canvas.width / window.devicePixelRatio;
+    const H = () => canvas.height / window.devicePixelRatio;
+
+    // Medicine icons floating
+    const icons = ['💊', '⚕️', '🧪', '💉', '🩺', '🔬', '📖', '🧬', '🏥', '💊', '⚕️', '🧪'];
+    const floaters = icons.map(() => ({
+        x: Math.random() * 1200,
+        y: Math.random() * 300,
+        size: 14 + Math.random() * 18,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: (Math.random() - 0.5) * 0.3,
+        opacity: 0.15 + Math.random() * 0.25,
+        icon: icons[Math.floor(Math.random() * icons.length)],
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.01
+    }));
+
+    // Particles (small glowing dots)
+    const particles = [];
+    for (let i = 0; i < 40; i++) {
+        particles.push({
+            x: Math.random() * 1200,
+            y: Math.random() * 300,
+            radius: 1 + Math.random() * 2.5,
+            speedX: (Math.random() - 0.5) * 0.6,
+            speedY: (Math.random() - 0.5) * 0.4,
+            opacity: 0.2 + Math.random() * 0.4,
+            pulse: Math.random() * Math.PI * 2
+        });
+    }
+
+    // DNA helix points
+    const dnaPoints = 20;
+
+    // Connection lines between nearby particles
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(0, 217, 217, ${0.08 * (1 - dist / 100)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    // Draw DNA double helix
+    function drawDNA(time) {
+        const w = W();
+        const h = H();
+        const centerX = w * 0.85;
+        const amplitude = 25;
+
+        ctx.lineWidth = 1.5;
+        for (let i = 0; i < dnaPoints; i++) {
+            const t = (i / dnaPoints) * h;
+            const offset = Math.sin(t * 0.03 + time * 0.002) * amplitude;
+            const x1 = centerX + offset;
+            const x2 = centerX - offset;
+            const y = t;
+            const alpha = 0.15 + Math.sin(time * 0.003 + i) * 0.08;
+
+            // Strand 1
+            if (i > 0) {
+                const prevOffset = Math.sin(((i - 1) / dnaPoints * h) * 0.03 + time * 0.002) * amplitude;
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 217, 217, ${alpha})`;
+                ctx.moveTo(centerX + prevOffset, (i - 1) / dnaPoints * h);
+                ctx.lineTo(x1, y);
+                ctx.stroke();
+
+                // Strand 2
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 180, 220, ${alpha})`;
+                ctx.moveTo(centerX - prevOffset, (i - 1) / dnaPoints * h);
+                ctx.lineTo(x2, y);
+                ctx.stroke();
+            }
+
+            // Cross bars
+            if (i % 3 === 0) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 200, 200, ${alpha * 0.6})`;
+                ctx.lineWidth = 1;
+                ctx.moveTo(x1, y);
+                ctx.lineTo(x2, y);
+                ctx.stroke();
+                ctx.lineWidth = 1.5;
+            }
+
+            // Dots at ends
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(0, 217, 217, ${alpha + 0.1})`;
+            ctx.arc(x1, y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(0, 180, 220, ${alpha + 0.1})`;
+            ctx.arc(x2, y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // Glowing orb effect
+    function drawOrbs(time) {
+        const w = W();
+        const h = H();
+
+        // Orb 1
+        const orb1X = w * 0.2 + Math.sin(time * 0.001) * 50;
+        const orb1Y = h * 0.4 + Math.cos(time * 0.0015) * 30;
+        const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 0, orb1X, orb1Y, 80);
+        grad1.addColorStop(0, 'rgba(0, 217, 217, 0.12)');
+        grad1.addColorStop(1, 'rgba(0, 217, 217, 0)');
+        ctx.fillStyle = grad1;
+        ctx.fillRect(orb1X - 80, orb1Y - 80, 160, 160);
+
+        // Orb 2
+        const orb2X = w * 0.7 + Math.cos(time * 0.0012) * 40;
+        const orb2Y = h * 0.6 + Math.sin(time * 0.001) * 25;
+        const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, 60);
+        grad2.addColorStop(0, 'rgba(0, 180, 255, 0.1)');
+        grad2.addColorStop(1, 'rgba(0, 180, 255, 0)');
+        ctx.fillStyle = grad2;
+        ctx.fillRect(orb2X - 60, orb2Y - 60, 120, 120);
+    }
+
+    let time = 0;
+
+    function animate() {
+        const w = W();
+        const h = H();
+        ctx.clearRect(0, 0, w, h);
+        time++;
+
+        // Glowing orbs
+        drawOrbs(time);
+
+        // DNA helix
+        drawDNA(time);
+
+        // Connection lines
+        drawConnections();
+
+        // Particles
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.pulse += 0.03;
+
+            if (p.x < 0) p.x = w;
+            if (p.x > w) p.x = 0;
+            if (p.y < 0) p.y = h;
+            if (p.y > h) p.y = 0;
+
+            const currentOpacity = p.opacity * (0.7 + Math.sin(p.pulse) * 0.3);
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(0, 217, 217, ${currentOpacity})`;
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        // Floating medicine icons
+        floaters.forEach(f => {
+            f.x += f.speedX;
+            f.y += f.speedY;
+            f.rotation += f.rotationSpeed;
+
+            if (f.x < -30) f.x = w + 30;
+            if (f.x > w + 30) f.x = -30;
+            if (f.y < -30) f.y = h + 30;
+            if (f.y > h + 30) f.y = -30;
+
+            ctx.save();
+            ctx.translate(f.x, f.y);
+            ctx.rotate(f.rotation);
+            ctx.globalAlpha = f.opacity;
+            ctx.font = `${f.size}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(f.icon, 0, 0);
+            ctx.restore();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
 
 // ========== Render Gallery ==========
 function renderGallery(imagesToRender) {
