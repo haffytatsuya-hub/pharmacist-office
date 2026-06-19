@@ -115,6 +115,20 @@ const images = [
         preview: './previews/コロナウイルス治療薬まとめ.pdf.png',
         isPdf: true
     },
+    {
+        id: 7,
+        title: '夜間・休日等加算＆時間外加算　まとめ表',
+        pdfFile: '時間外等加算まとめ_A4.pdf',
+        preview: './previews/時間外等加算まとめ_A4.pdf.png',
+        isPdf: true
+    },
+    {
+        id: 8,
+        title: '調剤管理料2026　新旧比較表',
+        pdfFile: '調剤管理料_新旧比較表_1.pdf',
+        preview: './previews/調剤管理料_新旧比較表_1.pdf.png',
+        isPdf: true
+    },
 ];
 
 // ========== DOM Elements ==========
