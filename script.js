@@ -129,6 +129,7 @@ const images = [
         preview: './previews/調剤管理料_新旧比較表_1.pdf.png',
         isPdf: true
     },
+    { id: 9, title: '外用剤ステロイド一覧表Ver1.0', pdfFile: '外用剤ステロイド一覧表Ver2.0.pdf', preview: './previews/外用剤ステロイド一覧表Ver2.0.pdf.png', isPdf: true },
 ];
 
 // ========== DOM Elements ==========
