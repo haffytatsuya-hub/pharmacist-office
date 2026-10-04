@@ -130,6 +130,7 @@ const images = [
         isPdf: true
     },
     { id: 9, title: '外用剤ステロイド一覧表Ver1.0', pdfFile: '外用剤ステロイド一覧表Ver2.0.pdf', preview: './previews/外用剤ステロイド一覧表Ver2.0.pdf.png', isPdf: true },
+    { id: 10, title: 'ステロイド外用薬一覧表  yOS.2026', pdfFile: 'ステロイド外用薬一覧表_yOS2026.pdf', preview: './previews/ステロイド外用薬一覧表_yOS2026.pdf.png', isPdf: true },
 ];
 
 // ========== DOM Elements ==========
